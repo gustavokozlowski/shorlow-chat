@@ -1,0 +1,29 @@
+{
+	"name": "andrewrosario",
+	"module": "index.ts",
+	"type": "module",
+	"scripts": {
+		"dev": "bun run --hot src/server.ts",
+		"start": "bun run src/server.ts",
+		"format": "biome format --write",
+		"lint": "biome lint",
+		"check": "biome check --write"
+	},
+	"private": true,
+	"devDependencies": {
+		"@biomejs/biome": "2.4.11",
+		"@types/bun": "latest",
+		"@types/express": "^5.0.6"
+	},
+	"peerDependencies": {
+		"typescript": "^5"
+	},
+	"dependencies": {
+		"@types/cors": "^2.8.19",
+		"@types/mongoose": "^5.11.97",
+		"biome": "^0.3.3",
+		"cors": "^2.8.6",
+		"express": "^5.2.1",
+		"mongoose": "^9.4.1"
+	}
+}
