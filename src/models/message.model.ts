@@ -14,11 +14,11 @@ const MessageSchema = new Schema({
 		type: String,
 		required: true,
 	},
-    receiver: {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
-    }
+	receiver: {
+		type: Schema.Types.ObjectId,
+		ref: 'User',
+		required: true,
+	},
 });
 
 export default model('Message', MessageSchema);
