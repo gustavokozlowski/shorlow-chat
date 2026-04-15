@@ -1,17 +1,20 @@
 import type { Request, Response } from 'express';
 import userModel from '../models/user/user.model';
-import type { CreateUserRequest, CreateUserResponse } from './user.controller.types';
+import type {
+	CreateUserRequest,
+	CreateUserResponse,
+} from './user.controller.types';
 
 class UserController {
 	// Implement user-related operations here
 	public async createUser(req: Request, res: Response): Promise<Response> {
-		const { userData }: CreateUserRequest = { ...req.body }
+		const { userData }: CreateUserRequest = { ...req.body };
 		const result = await userModel.create(userData);
 
 		const response: CreateUserResponse = {
-			message: "User created",
-			data: { ...result }
-		}
+			message: 'User created',
+			data: { ...result },
+		};
 
 		return res.json(response);
 	}

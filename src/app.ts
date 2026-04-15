@@ -17,7 +17,6 @@ export class App {
 		this.mongooseUri = String(env.MONGODB_URI);
 		this.database();
 		this.listen();
-
 	}
 
 	public initApp(): Application {
