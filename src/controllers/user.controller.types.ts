@@ -1,10 +1,11 @@
 import type { User } from '../models/user/user.interface';
 
+type userData = Omit<User, '_id'>;
 export interface CreateUserRequest {
-	userData: Omit<User, '_id'>;
+	userData: userData;
 }
 
 export interface CreateUserResponse {
 	message: string;
-	data: Omit<User, '_id'>;
+	data: Omit<User, 'password'>;
 }
