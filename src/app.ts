@@ -13,10 +13,10 @@ export class App {
 		this.port = port;
 		this.express = express();
 		this.middlewares();
-		this.routes();
 		this.mongooseUri = String(env.MONGODB_URI);
 		this.database();
 		this.listen();
+		this.routes();
 	}
 
 	public initApp(): Application {
