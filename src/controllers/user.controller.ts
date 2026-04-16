@@ -7,7 +7,7 @@ import type {
 
 class UserController {
 	// Implement user-related operations here
-	public async createUser(req: Request, res: Response): Promise<Response> {
+	public async register(req: Request, res: Response): Promise<Response> {
 		const { userData } = req.body as CreateUserRequest;
 
 		if (!userData.name || !userData.password) {
@@ -35,7 +35,7 @@ class UserController {
 		}
 	}
 
-	public async getUser(req: any, res: any): Promise<void> {
+	public async login(req: any, res: any): Promise<void> {
 		// Logic to retrieve a user by ID
 	}
 
