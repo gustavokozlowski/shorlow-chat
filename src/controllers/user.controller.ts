@@ -1,6 +1,5 @@
 import type { Request, Response } from 'express';
 import userModel from '../models/user/user.model';
-import { hashPassword } from '../utils/password.util';
 import type {
 	CreateUserRequest,
 	CreateUserResponse,
@@ -18,11 +17,7 @@ class UserController {
 		}
 
 		try {
-			const hashedPassword = await hashPassword(userData.password);
-			const createdUser = await userModel.create({
-				...userData,
-				password: hashedPassword,
-			});
+			const createdUser = await userModel.create(userData);
 			const createdUserObject = createdUser.toObject();
 			const { password, __v, ...safeData } = createdUserObject;
 
