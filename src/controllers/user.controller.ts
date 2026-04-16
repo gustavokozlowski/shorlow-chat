@@ -1,5 +1,6 @@
 import type { Request, Response } from 'express';
 import userModel from '../models/user/user.model';
+import { hashPassword } from '../utils/password.util';
 import type {
 	CreateUserRequest,
 	CreateUserResponse,
@@ -8,15 +9,35 @@ import type {
 class UserController {
 	// Implement user-related operations here
 	public async createUser(req: Request, res: Response): Promise<Response> {
-		const { userData }: CreateUserRequest = { ...req.body };
-		const result = await userModel.create(userData);
+		const { userData } = req.body as CreateUserRequest; 
 
-		const response: CreateUserResponse = {
-			message: 'User created',
-			data: { ...result },
-		};
+		if (!userData.name || !userData.password) {
+			return res.status(400).json({
+				message: 'Campos obrigatorios ausentes: name e password.',
+			});
+		}
 
-		return res.json(response);
+		try {
+			const hashedPassword = await hashPassword(userData.password);
+			const createdUser = await userModel.create({
+				...userData,
+				password: hashedPassword,
+			});
+			const createdUserObject = createdUser.toObject();
+			const { password, __v, ...safeData } = createdUserObject;
+
+			const response: CreateUserResponse = {
+				message: 'User created',
+				data: safeData,
+			};
+
+			return res.status(201).json(response);
+		} catch(err: any) {
+			return res.status(500).json({
+				message: 'Erro interno ao criar usuario.',
+				errorDetails: err
+			});
+		}
 	}
 
 	public async getUser(req: any, res: any): Promise<void> {
