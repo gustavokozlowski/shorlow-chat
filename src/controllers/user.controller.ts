@@ -40,11 +40,12 @@ class UserController {
 
 	public async login(req: Request, res: Response): Promise<Response> {
 		const { name, password }  = req.body as UserLoginRequest;
-		
-		if (!name || password) {
+
+		if (!name || !password) {
 			return res.status(401).json({
 				message:'Campos obrigatorios ausentes: name e password.'});
 		}
+
 		try {
 			const data = await userModel.findOne({ name })
 			if (!data) {
@@ -61,7 +62,8 @@ class UserController {
 			const result: UserLoginResponse = {
 				success: true, 
 				message: 'Login realizado com sucesso',
-			    ...userData
+			    _id: userData._id.toString(),
+			    name: userData.name
 			} 
 
 			return res.status(200).json(result)
