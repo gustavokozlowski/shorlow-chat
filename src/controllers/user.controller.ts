@@ -8,7 +8,7 @@ import type {
 class UserController {
 	// Implement user-related operations here
 	public async createUser(req: Request, res: Response): Promise<Response> {
-		const { userData } = req.body as CreateUserRequest; 
+		const { userData } = req.body as CreateUserRequest;
 
 		if (!userData.name || !userData.password) {
 			return res.status(400).json({
@@ -27,10 +27,10 @@ class UserController {
 			};
 
 			return res.status(201).json(response);
-		} catch(err: any) {
+		} catch (err: any) {
 			return res.status(500).json({
 				message: 'Erro interno ao criar usuario.',
-				errorDetails: err
+				errorDetails: err,
 			});
 		}
 	}

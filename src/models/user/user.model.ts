@@ -1,6 +1,6 @@
 import { model, Schema } from 'mongoose';
-import type { User } from './user.interface';
 import { useHashPasswordHook } from './hooks/user.models.hooks';
+import type { User } from './user.interface';
 
 export interface UserModel extends User {}
 
@@ -19,6 +19,6 @@ export const UserSchema = new Schema({
 	},
 });
 
-useHashPasswordHook()
+useHashPasswordHook();
 
 export default model<UserModel>('User', UserSchema);
