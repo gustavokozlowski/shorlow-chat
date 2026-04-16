@@ -10,12 +10,12 @@ export interface CreateUserResponse {
 	data: Omit<User, 'password'>;
 }
 export interface UserLoginRequest {
-name: string
-password: string
+	name: string;
+	password: string;
 }
 export interface UserLoginResponse {
-success: boolean
-message: string
-_id: string
-name: string
+	success: boolean;
+	message: string;
+	_id: string;
+	name: string;
 }
