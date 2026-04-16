@@ -3,7 +3,10 @@ import userModel from '../models/user/user.model';
 import type {
 	CreateUserRequest,
 	CreateUserResponse,
+	UserLoginRequest,
+	UserLoginResponse,
 } from './user.controller.types';
+import { verifyPassword } from '../utils/password.util';
 
 class UserController {
 	// Implement user-related operations here
@@ -30,13 +33,44 @@ class UserController {
 		} catch (err: any) {
 			return res.status(500).json({
 				message: 'Erro interno ao criar usuario.',
-				errorDetails: err,
+				errorDetails: err
 			});
 		}
 	}
 
-	public async login(req: any, res: any): Promise<void> {
-		// Logic to retrieve a user by ID
+	public async login(req: Request, res: Response): Promise<Response> {
+		const { name, password }  = req.body as UserLoginRequest;
+		
+		if (!name || password) {
+			return res.status(401).json({
+				message:'Campos obrigatorios ausentes: name e password.'});
+		}
+		try {
+			const data = await userModel.findOne({ name })
+			if (!data) {
+				return res.status(400).json({message:'Usuário não existe!'})
+			}
+
+			const passwordIsValid = await verifyPassword(password, data.password)
+			if (!passwordIsValid) {
+				return res.status(400).json({message: 'Senha incorreta!'})
+			}
+
+			const userData = data.toObject()
+
+			const result: UserLoginResponse = {
+				success: true, 
+				message: 'Login realizado com sucesso',
+			    ...userData
+			} 
+
+			return res.status(200).json(result)
+		} catch (err: any) {
+			return res.status(500).json({
+				message: 'Erro interno ao tentar realizar o login.',
+				errorDetails: err
+			});
+		}
 	}
 
 	public async updateUser(req: any, res: any): Promise<void> {
