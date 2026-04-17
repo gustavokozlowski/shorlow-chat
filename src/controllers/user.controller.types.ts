@@ -16,6 +16,6 @@ export interface UserLoginRequest {
 export interface UserLoginResponse {
 	success: boolean;
 	message: string;
-	_id: string;
 	name: string;
+	token: string;
 }

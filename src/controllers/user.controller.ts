@@ -25,14 +25,14 @@ class UserController {
 			const { password, __v, ...safeData } = createdUserObject;
 
 			const response: CreateUserResponse = {
-				message: 'User created',
+				message: 'Usuário criado com sucesso.',
 				data: safeData,
 			};
 
 			return res.status(201).json(response);
 		} catch (err: any) {
 			return res.status(500).json({
-				message: 'Erro interno ao criar usuario.',
+				message: 'Erro interno ao criar usuário.',
 				errorDetails: err,
 			});
 		}
@@ -43,7 +43,7 @@ class UserController {
 
 		if (!name || !password) {
 			return res.status(401).json({
-				message: 'Campos obrigatorios ausentes: name e password.',
+				message: 'Campos obrigatorios ausentes: name & password.',
 			});
 		}
 
@@ -63,8 +63,8 @@ class UserController {
 			const result: UserLoginResponse = {
 				success: true,
 				message: 'Login realizado com sucesso',
-				_id: userData._id.toString(),
 				name: userData.name,
+				token: data.generateToken(),
 			};
 
 			return res.status(200).json(result);
