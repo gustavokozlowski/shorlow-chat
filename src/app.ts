@@ -1,7 +1,6 @@
 import cors from 'cors';
 import express, { type Application } from 'express';
 import mongoose from 'mongoose';
-import { env } from 'process';
 import userRoute from './routes/user.route';
 
 export class App {
@@ -13,7 +12,7 @@ export class App {
 		this.port = port;
 		this.express = express();
 		this.middlewares();
-		this.mongooseUri = String(env.MONGODB_URI);
+		this.mongooseUri = Bun.env.MONGODB_URI
 		this.database();
 		this.listen();
 		this.routes();
