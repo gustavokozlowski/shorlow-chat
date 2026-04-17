@@ -12,7 +12,7 @@ export class App {
 		this.port = port;
 		this.express = express();
 		this.middlewares();
-		this.mongooseUri = Bun.env.MONGODB_URI
+		this.mongooseUri = Bun.env.MONGODB_URI;
 		this.database();
 		this.listen();
 		this.routes();

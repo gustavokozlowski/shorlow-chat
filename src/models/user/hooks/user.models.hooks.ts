@@ -8,13 +8,15 @@ export const useHashPasswordHook = () =>
 	});
 
 export const useGenerateJwtToken = () =>
-	UserSchema.methods.generateToken = function (this: UserModel): string {
+	(UserSchema.methods.generateToken = function (this: UserModel): string {
 		const decodedToken = {
 			_id: String(this._id),
 			name: this.name,
-			photoUrl: this.photoUrl
-		}
+			photoUrl: this.photoUrl,
+		};
 
-		return jsonwebtoken.sign(decodedToken, Bun.env.JWT_SECRET, { expiresIn: Bun.env.JWT_EXPIRES_IN as jsonwebtoken.SignOptions['expiresIn'] });
-
-	}
+		return jsonwebtoken.sign(decodedToken, Bun.env.JWT_SECRET, {
+			expiresIn: Bun.env
+				.JWT_EXPIRES_IN as jsonwebtoken.SignOptions['expiresIn'],
+		});
+	});
