@@ -1,8 +1,10 @@
 import { model, Schema } from 'mongoose';
-import { useHashPasswordHook } from './hooks/user.models.hooks';
+import { useGenerateJwtToken, useHashPasswordHook } from './hooks/user.models.hooks';
 import type { User } from './user.interface';
 
-export interface UserModel extends User {}
+export interface UserModel extends User {
+	generateToken: () => string;
+}
 
 export const UserSchema = new Schema({
 	name: {
@@ -20,5 +22,6 @@ export const UserSchema = new Schema({
 });
 
 useHashPasswordHook();
+useGenerateJwtToken();
 
 export default model<UserModel>('User', UserSchema);
