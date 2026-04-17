@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express';
-import userModel from '../models/user/user.model';
-import { verifyPassword } from '../utils/password.util';
+import userModel from '../../models/user/user.model';
+import { verifyPassword } from '../../utils/password.util';
 import type {
 	CreateUserRequest,
 	CreateUserResponse,

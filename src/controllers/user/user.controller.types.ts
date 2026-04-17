@@ -1,4 +1,4 @@
-import type { User } from '../models/user/user.interface';
+import type { User } from '../../models/user/user.interface';
 
 type userData = Omit<User, '_id'>;
 export interface CreateUserRequest {
