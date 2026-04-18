@@ -1,4 +1,7 @@
 import { model, Schema } from 'mongoose';
+import type { Message } from './message,models.interface';
+
+export interface MessageModel extends Message {}
 
 const MessageSchema = new Schema({
 	sender: {
@@ -21,4 +24,4 @@ const MessageSchema = new Schema({
 	},
 });
 
-export default model('Message', MessageSchema);
+export default model<MessageModel>('Message', MessageSchema);
