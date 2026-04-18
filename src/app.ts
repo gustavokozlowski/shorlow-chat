@@ -1,8 +1,8 @@
 import cors from 'cors';
 import express, { type Application } from 'express';
 import mongoose from 'mongoose';
-import userRoute from './routes/user.route';
 import messageRoute from './routes/message.route';
+import userRoute from './routes/user.route';
 
 export class App {
 	private express: Application;

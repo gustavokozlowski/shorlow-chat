@@ -1,12 +1,12 @@
-import type { Message } from '../../models/message/message,models.interface'
+import type { Message } from '../../models/message/message,models.interface';
 
-type messageData = Omit<Message, 'createdAt'>
+type messageData = Omit<Message, 'createdAt'>;
 
 export interface SendMessageRequest {
-    message: messageData;
+	message: messageData;
 }
 
 export interface SendMessageResponse {
-    success: boolean
-    message: string;
+	success: boolean;
+	message: string;
 }
