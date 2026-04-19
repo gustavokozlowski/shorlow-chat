@@ -4,6 +4,8 @@
 	"type": "module",
 	"scripts": {
 		"dev": "bun run --hot src/server.ts",
+		"debug": "bun --inspect-wait run src/server.ts",
+		"debug:hot": "bun --inspect run --hot src/server.ts",
 		"start": "bun run src/server.ts",
 		"test": "bun test",
 		"format": "biome format --write",
