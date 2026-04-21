@@ -7,6 +7,7 @@ const messageRoute = Router();
 messageRoute.post(
 	'/send/:id',
 	authMiddleware.authUserByToken,
+	authMiddleware.authUserByParams,
 	messageController.send,
 );
 
