@@ -33,6 +33,26 @@ class AuthMiddleware {
 			res.status(401).json({ message: AUTH_MESSAGE.INVALID });
 		}
 	}
+
+	public async authUserByParams(
+		req: Request,
+		res: Response,
+		next: NextFunction,
+	): Promise<Response | void> {
+		try {
+			const user = await userModel.findById(req.params.id);
+
+			if (!user)
+				return res.status(400).json({ message: USER_MESSAGE.NOTFOUND });
+
+			req.receiver = user;
+
+			return next();
+		} catch (error: unknown) {
+			console.error('Error on Auth middleware \n', error);
+			res.status(401).json({ message: USER_MESSAGE.INVALID });
+		}
+	}
 }
 
 export default new AuthMiddleware();

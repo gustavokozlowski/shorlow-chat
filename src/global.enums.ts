@@ -5,4 +5,5 @@ export enum AUTH_MESSAGE {
 
 export enum USER_MESSAGE {
 	NOTFOUND = 'Usuário não existe no banco de dados!',
+	INVALID = 'Usuário inválido!',
 }
