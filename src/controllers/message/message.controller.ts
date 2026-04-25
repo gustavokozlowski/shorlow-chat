@@ -27,11 +27,22 @@ class MessageController {
 					{ $and: [{ sender: idUserChat }, { receiver: idLoggedUser }] },
 				]
 			}).sort('createdAt');
+
+
+            const messagesChat = messages.map(message => {
+			  const	formatedMessage =  message.toObject()
+				return {
+					user: formatedMessage.sender,
+					content: formatedMessage.content,
+					createdAt: formatedMessage.createdAt,
+					isSender: formatedMessage.sender.toString() === String(idLoggedUser)
+				}
+			})
 		
 
 		return res.status(200).json({
 			success: true,
-			data: messages
+			data: messagesChat
 		});	
 
 	}
