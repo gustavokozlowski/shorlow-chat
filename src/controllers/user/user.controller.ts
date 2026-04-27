@@ -81,8 +81,12 @@ class UserController {
 		return res.status(200).json(req.user);
 	}
 
-	public async deleteUser(req: any, res: any): Promise<void> {
-		// Logic to delete a user
+	public async listUsers(req: Request, res: Response): Promise<Response> {
+		const idLoggedUser = req.user?._id;
+
+		const users: User[] = await userModel.find({ _id: { $ne: idLoggedUser } });
+
+		return res.status(200).json(users);
 	}
 }
 
