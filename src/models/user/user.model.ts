@@ -1,11 +1,10 @@
-import { model, Schema } from 'mongoose';
+import { Document, model, Schema } from 'mongoose';
 import {
 	useGenerateJwtToken,
 	useHashPasswordHook,
 } from './hooks/user.models.hooks';
 import type { User } from './user.interface';
-
-export interface UserModel extends User {
+interface UserModel extends User, Document {
 	generateToken: () => string;
 }
 
