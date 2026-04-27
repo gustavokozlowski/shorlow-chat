@@ -3,7 +3,7 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "andrewrosario",
+      "name": "shorlow-chat",
       "dependencies": {
         "bcrypt": "^6.0.0",
         "biome": "^0.3.3",
