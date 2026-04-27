@@ -4,11 +4,11 @@ import {
 	useHashPasswordHook,
 } from './hooks/user.models.hooks';
 import type { User } from './user.interface';
-interface UserModel extends User, Document {
+export interface UserModel extends User, Document {
 	generateToken: () => string;
 }
 
-export const UserSchema = new Schema({
+export const UserSchema = new Schema<UserModel>({
 	name: {
 		type: String,
 		required: true,
