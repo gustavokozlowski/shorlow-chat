@@ -1,9 +1,22 @@
-import { Document, model, Schema } from 'mongoose';
+import {
+	Document,
+	Model,
+	model,
+	type QueryWithHelpers,
+	Schema,
+} from 'mongoose';
 import type { Message } from './message,models.interface';
 
-interface MessageModel extends Message, Document {}
+export interface MessageModel extends Message, Document {}
 
-const MessageSchema = new Schema({
+interface MessageStatic extends Model<MessageModel> {
+	searchChat(
+		userLoggedId: string,
+		userChatId: string,
+	): QueryWithHelpers<MessageModel[], MessageModel>;
+}
+
+const MessageSchema = new Schema<MessageModel>({
 	sender: {
 		type: Schema.Types.ObjectId,
 		ref: 'User',
@@ -24,4 +37,16 @@ const MessageSchema = new Schema({
 	},
 });
 
-export default model<MessageModel>('Message', MessageSchema);
+MessageSchema.statics.searchChat = function (
+	userLoggedId: string,
+	userChatId: string,
+): QueryWithHelpers<MessageModel[], MessageModel> {
+	return this.find({
+		$or: [
+			{ $and: [{ sender: userLoggedId }, { receiver: userChatId }] },
+			{ $and: [{ sender: userChatId }, { receiver: userLoggedId }] },
+		],
+	});
+};
+
+export default model<MessageModel, MessageStatic>('Message', MessageSchema);

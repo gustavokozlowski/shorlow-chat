@@ -18,16 +18,11 @@ class MessageController {
 	}
 
 	public async list(req: Request, res: Response): Promise<Response> {
-		const idUserChat = req?.receiver?._id as string;
-		const idLoggedUser = req?.user?._id as string;
+		const idUserChat = String(req?.receiver?._id);
+		const idLoggedUser = String(req?.user?._id);
 
 		const messages = await messageModel
-			.find({
-				$or: [
-					{ $and: [{ sender: idLoggedUser }, { receiver: idUserChat }] },
-					{ $and: [{ sender: idUserChat }, { receiver: idLoggedUser }] },
-				],
-			})
+			.searchChat(idLoggedUser, idUserChat)
 			.sort('createdAt');
 
 		const messagesChat = messages.map((message) => {

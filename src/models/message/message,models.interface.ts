@@ -1,6 +1,8 @@
+import type { Types } from 'mongoose';
+
 export interface Message {
-	sender: string;
+	sender: Types.ObjectId;
 	content?: string;
-	receiver: string;
+	receiver: Types.ObjectId;
 	createdAt?: Date;
 }
