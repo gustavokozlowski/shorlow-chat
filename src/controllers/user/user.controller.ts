@@ -1,4 +1,5 @@
 import type { Request, Response } from 'express';
+import type { User } from '../../models/user/user.interface';
 import userModel from '../../models/user/user.model';
 import { verifyPassword } from '../../utils/password.util';
 import type {
@@ -30,7 +31,7 @@ class UserController {
 			};
 
 			return res.status(201).json(response);
-		} catch (err: any) {
+		} catch (err: unknown) {
 			return res.status(500).json({
 				message: 'Erro interno ao criar usuário.',
 				errorDetails: err,
@@ -68,7 +69,7 @@ class UserController {
 			};
 
 			return res.status(200).json(result);
-		} catch (err: any) {
+		} catch (err: unknown) {
 			return res.status(500).json({
 				message: 'Erro interno ao tentar realizar o login.',
 				errorDetails: err,
@@ -76,8 +77,8 @@ class UserController {
 		}
 	}
 
-	public async updateUser(req: any, res: any): Promise<void> {
-		// Logic to update user information
+	public getById(req: Request, res: Response): Response<User> {
+		return res.status(200).json(req.user);
 	}
 
 	public async deleteUser(req: any, res: any): Promise<void> {
